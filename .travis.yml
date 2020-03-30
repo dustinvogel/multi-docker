@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t dustinvogel/multi-docker -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true dustinvogel/multi-docker npm run test 
+
+after_success:
+  - docker build -t dustinvogel/multi-docker-client ./client
+  - docker build -t dustinvogel/multi-docker-nginx ./multi-docker-nginx
+  - docker build -t dustinvogel/multi-docker-server ./multi-docker-server
+  - docker build -t dustinvogel/multi-docker-worker ./multi-docker-worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push dustinvogel/multi-docker-client
+  - docker push dustinvogel/multi-docker-nginx
+  - docker push dustinvogel/multi-docker-server
+  - docker push dustinvogel/multi-docker-worker
+
+
