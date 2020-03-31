@@ -1,0 +1,38 @@
+{
+	"AWSEBDockerrunVersion": 2,
+	"containerDefinitions":[
+		{
+			"name": "client",
+			"image": "dustinvogel/multi-docker-client",
+			"hostname": "client",
+			"essential": false
+		},
+		{
+			"name": "server",
+			"image": "dustinvogel/multi-docker-server",
+			"hostname": "api",
+			"essential": false
+		},
+		{
+			"name": "worker",
+			"image": "dustinvogel/multi-docker-worker",
+			"hostname": "worker",
+			"essential": false
+		},
+		{
+			"name": "nginx",
+			"image": "dustinvogel/multi-docker-nginx",
+			"essential": true,
+			"portMappings":[
+				{
+					"hostPort": 80,
+					"containerPort":80
+				}
+			],
+			"links":[
+				"client",
+				"server"
+			]
+		}
+	]
+}
