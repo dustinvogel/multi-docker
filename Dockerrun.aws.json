@@ -12,18 +12,21 @@
 			"name": "server",
 			"image": "dustinvogel/multi-docker-server",
 			"hostname": "api",
-			"essential": false
+			"essential": false,
+			"memoryReservation": 256
 		},
 		{
 			"name": "worker",
 			"image": "dustinvogel/multi-docker-worker",
 			"hostname": "worker",
-			"essential": false
+			"essential": false,
+			"memoryReservation": 256
 		},
 		{
 			"name": "nginx",
 			"image": "dustinvogel/multi-docker-nginx",
 			"essential": true,
+			"memoryReservation": 256,
 			"portMappings":[
 				{
 					"hostPort": 80,
