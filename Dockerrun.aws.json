@@ -5,7 +5,8 @@
 			"name": "client",
 			"image": "dustinvogel/multi-docker-client",
 			"hostname": "client",
-			"essential": false
+			"essential": false,
+			"memoryReservation": 256
 		},
 		{
 			"name": "server",
